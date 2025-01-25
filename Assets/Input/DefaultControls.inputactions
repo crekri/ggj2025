@@ -70,7 +70,7 @@
                 {
                     "name": "down",
                     "id": "6343ffb0-46de-4f95-860f-3df778273392",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -159,17 +159,6 @@
                     "name": "",
                     "id": "28b0ed1a-347e-45fb-a289-f552f642635e",
                     "path": "<Gamepad>/dpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4ab77781-1ece-4631-a999-e10d940ec693",
-                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
