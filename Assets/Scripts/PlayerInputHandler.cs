@@ -4,12 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
 	private IPlayerMovementController playerController;
-	private PlayerAbilityController playerAbilityController;
+	[SerializeField] private PlayerAbilityStateMachine playerAbilityController;
 
 	private void Awake()
 	{
 		playerController = GetComponent<IPlayerMovementController>();
-		playerAbilityController = GetComponent<PlayerAbilityController>();
 	}
 
 	public void OnMove(InputAction.CallbackContext context)
@@ -24,6 +23,9 @@ public class PlayerInputHandler : MonoBehaviour
 
 	public void OnAbility(InputAction.CallbackContext context)
 	{
-		playerAbilityController.SetInput(context.ReadValueAsButton());
+		if (context.performed)
+			playerAbilityController.OnBubbleButtonDown();
+		if (context.canceled)
+			playerAbilityController.OnBubbleButtonRelease();
 	}
 }

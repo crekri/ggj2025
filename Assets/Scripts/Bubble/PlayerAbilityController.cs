@@ -1,73 +1,25 @@
 using System;
 using System.Collections.Generic;
-using Bubble;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class PlayerAbilityController : MonoBehaviour
+public abstract class PlayerAbilityStateBehaviour : MonoBehaviour, IAbilityInputHandler
 {
-	[SerializeField] private Transform bubbleSpawnPoint;
-	[SerializeField] private BubbleController smallBubblePrefab;
-	[SerializeField] private BubbleController bigBubblePrefab;
+	private PlayerAbilityStateMachine stateMachine;
 
-	private IPlayerController playerController;
+	public virtual void OnEnter() { }
+	public virtual void OnExit(bool isCancel) { }
+	public virtual void OnUpdate() { }
+	public virtual void OnBubbleButtonDown() { }
+	public virtual void OnBubbleButtonRelease() { }
 
-	private bool isFirstPressed;
-
-	private void Awake()
+	public void InitState(PlayerAbilityStateMachine stateMachine)
 	{
-		playerController = GetComponent<IPlayerController>();
+		this.stateMachine = stateMachine;
 	}
 
-	public float BubbleChargeTime = .5f;
-
-	private bool wasPressed;
-	private bool isPressed;
-	private float inputTimer;
-	private bool isCharging;
-
-	public void SetInput(bool isPressed)
+	protected void TransitionTo(PlayerAbilityStateBehaviour newState)
 	{
-		this.isPressed = isPressed;
-	}
-
-	private void Update()
-	{
-		if (isPressed)
-		{
-			inputTimer += Time.deltaTime;
-			isCharging = true;
-
-			if (inputTimer >= BubbleChargeTime)
-			{
-				BlowBigBubble();
-			}
-		}
-		else
-		{
-			if (wasPressed)
-			{
-				BlowBubble();
-			}
-		}
-
-		wasPressed = isPressed;
-	}
-
-	private void BlowBubble()
-	{
-		isCharging = false;
-		inputTimer = 0;
-
-		var bubble = Instantiate(smallBubblePrefab, bubbleSpawnPoint.position, Quaternion.identity);
-		bubble.Setup(playerController.GetOrientation());
-	}
-
-	private void BlowBigBubble()
-	{
-		isCharging = false;
-		inputTimer = 0;
-
-		var bubble = Instantiate(bigBubblePrefab, bubbleSpawnPoint.position, Quaternion.identity);
-		bubble.Setup(playerController.GetOrientation());
+		stateMachine.TransitTo(newState);
 	}
 }

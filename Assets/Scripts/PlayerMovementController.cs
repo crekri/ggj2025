@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Bubble;
+using Chris;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-
-public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
+public class PlayerMovementController : MonoBehaviour, IPlayerController
 {
 	private PlayerParams playerParams;
 	private Rigidbody2D rb;
@@ -128,5 +130,32 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 
 	}
 
+
+	public bool IsFacingRight { get; private set; } = true;
+	public void OnBubbleHit(BubbleHitInfo info)
+	{
+		
+	}
+}
+
+
+public abstract class PlayerState : MonoBehaviour
+{
+	private PlayerStateMachine _stateMachine;
+	protected void TransitTo(PlayerState newState) => _stateMachine.TransitTo(newState);
+
+	public void Init(PlayerStateMachine stateMachine)
+	{
+		_stateMachine = stateMachine;
+	}
+
+	public abstract void OnEnter();
+
+	public abstract void OnExit();
 	
+	public abstract void MyFixedUpdate();
+	public abstract void SetMoveInput(Vector2 inputVector);
+	public abstract void SetJumpInput(bool isPressed);
+
+	public bool IsFacingRight;
 }
