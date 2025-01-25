@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2682615690079099618}
   - component: {fileID: 9053823020194604195}
   m_Layer: 0
-  m_Name: Ammo
+  m_Name: Ammo View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,9 +98,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af7f038953b40a2912fd8c1fbcdcf30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigBubbleRequirementBar: {fileID: 3050855361626196082}
   ammoBar: {fileID: 8401660066389377629}
-  playerAbilityController: {fileID: 6743701069216330932}
+  ammoController: {fileID: 1173219053359725040}
+  bubbleChargeController: {fileID: 9032735619619599079}
+--- !u!1 &2163413908531896543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7882600284570553078}
+  - component: {fileID: 6766486987083370347}
+  - component: {fileID: 3692047898494339499}
+  - component: {fileID: 9032735619619599079}
+  - component: {fileID: 1173219053359725040}
+  m_Layer: 0
+  m_Name: Player Ability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7882600284570553078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163413908531896543}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7486012727808758152}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6766486987083370347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163413908531896543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0064f18d917b443a9fec99fc189d7ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoController: {fileID: 1173219053359725040}
+  idleState: {fileID: 3692047898494339499}
+  ammoRecoveryRate: 3
+--- !u!114 &3692047898494339499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163413908531896543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e52a8767c54fb7b953a12da7408f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleChargeState: {fileID: 9032735619619599079}
+--- !u!114 &9032735619619599079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163413908531896543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc00b6c2059649029c0bbff664b72840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleState: {fileID: 3692047898494339499}
+  playerControllerObject: {fileID: 6361024802846193207}
+  ammoController: {fileID: 1173219053359725040}
+  smallAmmoCost: 1
+  bigAmmoCost: 3
+  smallBubblePrefab: {fileID: 4178322898941426097, guid: 1533dd1d149bb4a69b3096f283c9b198, type: 3}
+  bigBubblePrefab: {fileID: 4178322898941426097, guid: b43afdc855963438d8d13f9f2d4983b6, type: 3}
+  BigBubbleChargeDuration: 0.5
+  bubbleShootPoint: {fileID: 7940481592311284548}
+--- !u!114 &1173219053359725040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163413908531896543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b02f4169a95942bcb8a89a50a7d5c713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAmmo: 5
 --- !u!1 &2682500648531656942
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +549,6 @@ GameObject:
   - component: {fileID: 6223405682521548140}
   - component: {fileID: 8669452119006625255}
   - component: {fileID: 6361024802846193207}
-  - component: {fileID: 6743701069216330932}
   m_Layer: 0
   m_Name: ChrisTestPlayer
   m_TagString: Untagged
@@ -477,6 +573,7 @@ Transform:
   - {fileID: 5044888696136170010}
   - {fileID: 3399556613729547353}
   - {fileID: 5041082103078268607}
+  - {fileID: 7882600284570553078}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4949008968883350503
@@ -596,6 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41977e81ac6412584f81d54b9d6c69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAbilityController: {fileID: 6766486987083370347}
 --- !u!114 &6361024802846193207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,25 +712,6 @@ MonoBehaviour:
   flipTransform: {fileID: 8009107767547634256}
   soapAmountText: {fileID: 5332062780329353347}
   BubbleCountdown: 0
---- !u!114 &6743701069216330932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5398664788773015426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f68ba5e962e4e7e8f339f866f66ec75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smallCost: 0.2
-  bigCost: 0.6
-  rechargeRate: 0.3
-  bubbleSpawnPoint: {fileID: 7940481592311284548}
-  smallBubblePrefab: {fileID: 4178322898941426097, guid: 1533dd1d149bb4a69b3096f283c9b198, type: 3}
-  bigBubblePrefab: {fileID: 4178322898941426097, guid: b43afdc855963438d8d13f9f2d4983b6, type: 3}
-  BubbleChargeTime: 0.5
 --- !u!1 &6266272731676466276
 GameObject:
   m_ObjectHideFlags: 0
