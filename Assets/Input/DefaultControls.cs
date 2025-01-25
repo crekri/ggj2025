@@ -53,6 +53,15 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActionX"",
+                    ""type"": ""Button"",
+                    ""id"": ""0477e425-2e27-4841-9772-240b902f64fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -231,6 +240,28 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
                     ""action"": ""ActionB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce46eb74-a83f-44c8-859f-019e7a574dbc"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d06c7744-68f7-460b-b8bd-0203f77b0059"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -242,6 +273,7 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_ActionA = m_Player.FindAction("ActionA", throwIfNotFound: true);
         m_Player_ActionB = m_Player.FindAction("ActionB", throwIfNotFound: true);
+        m_Player_ActionX = m_Player.FindAction("ActionX", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +338,7 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_ActionA;
     private readonly InputAction m_Player_ActionB;
+    private readonly InputAction m_Player_ActionX;
     public struct PlayerActions
     {
         private @DefaultControls m_Wrapper;
@@ -313,6 +346,7 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @ActionA => m_Wrapper.m_Player_ActionA;
         public InputAction @ActionB => m_Wrapper.m_Player_ActionB;
+        public InputAction @ActionX => m_Wrapper.m_Player_ActionX;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -331,6 +365,9 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
             @ActionB.started += instance.OnActionB;
             @ActionB.performed += instance.OnActionB;
             @ActionB.canceled += instance.OnActionB;
+            @ActionX.started += instance.OnActionX;
+            @ActionX.performed += instance.OnActionX;
+            @ActionX.canceled += instance.OnActionX;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -344,6 +381,9 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
             @ActionB.started -= instance.OnActionB;
             @ActionB.performed -= instance.OnActionB;
             @ActionB.canceled -= instance.OnActionB;
+            @ActionX.started -= instance.OnActionX;
+            @ActionX.performed -= instance.OnActionX;
+            @ActionX.canceled -= instance.OnActionX;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -366,5 +406,6 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnActionA(InputAction.CallbackContext context);
         void OnActionB(InputAction.CallbackContext context);
+        void OnActionX(InputAction.CallbackContext context);
     }
 }
