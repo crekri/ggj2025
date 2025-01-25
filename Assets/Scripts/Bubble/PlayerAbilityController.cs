@@ -13,9 +13,6 @@ public class PlayerAbilityController : MonoBehaviour
 
 	private bool isFirstPressed;
 
-	[SerializeField] private float smallBubbleSpeed = 10f;
-	[SerializeField] private float bigBubbleSpeed = 5f;
-
 	private void Awake()
 	{
 		playerController = GetComponent<IPlayerController>();
@@ -62,7 +59,7 @@ public class PlayerAbilityController : MonoBehaviour
 		inputTimer = 0;
 
 		var bubble = Instantiate(smallBubblePrefab, bubbleSpawnPoint.position, Quaternion.identity);
-		bubble.Spawn(playerController.GetOrientation() * smallBubbleSpeed);
+		bubble.Setup(playerController.GetOrientation());
 	}
 
 	private void BlowBigBubble()
@@ -71,6 +68,6 @@ public class PlayerAbilityController : MonoBehaviour
 		inputTimer = 0;
 
 		var bubble = Instantiate(bigBubblePrefab, bubbleSpawnPoint.position, Quaternion.identity);
-		bubble.Spawn(playerController.GetOrientation() * bigBubbleSpeed);
+		bubble.Setup(playerController.GetOrientation());
 	}
 }

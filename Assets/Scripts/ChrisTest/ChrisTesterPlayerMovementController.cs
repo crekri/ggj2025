@@ -1,9 +1,17 @@
+using Bubble;
+
 namespace Chris
 {
 	using UnityEngine;
 
 	public class ChrisTesterPlayerMovementController : MonoBehaviour, IPlayerController
 	{
+		public enum EState
+		{
+			Free,
+			Bubble,
+		}
+
 		private Rigidbody2D rb;
 
 		public float RunSpeed = 10f;
@@ -14,6 +22,9 @@ namespace Chris
 		private Vector2 moveInput;
 
 		[SerializeField] private Transform flipTransform;
+
+		public float SoapAmount { get; private set; }
+		[SerializeField] private TextMesh soapAmountText;
 
 		private void Awake()
 		{
@@ -29,6 +40,15 @@ namespace Chris
 		{
 			if (isPressed)
 				rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
+		}
+
+		public void OnBubbleHit(BubbleHitInfo info)
+		{
+			SoapAmount += info.SoapAmount;
+			soapAmountText.text = SoapAmount.ToString("P0");
+
+			if (info.IsTrap)
+				Debug.Log("TODO: Trap");
 		}
 
 		private void FixedUpdate()

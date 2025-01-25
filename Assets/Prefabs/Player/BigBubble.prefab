@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c07ae2b573449b3992ce4fbbdee7e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soapAmount: 0.2
+  speed: 5
+  isTrap: 0
 --- !u!50 &1386364367074800102
 Rigidbody2D:
   serializedVersion: 4
