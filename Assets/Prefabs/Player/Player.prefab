@@ -431,7 +431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3758095909439119573
 Transform:
   m_ObjectHideFlags: 0
@@ -441,9 +441,9 @@ Transform:
   m_GameObject: {fileID: 5126176017548555091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.38, z: 0}
+  m_LocalScale: {x: 1.78, y: 1.78, z: 1.78}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3163560179492731683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -488,8 +488,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: db27c54560dc64fb194d24c21a9c089a, type: 3}
-  m_Color: {r: 0.43867922, g: 0.76465285, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: c242aaa5765994fbfb0136c40b6f4989, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.07450981}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 3868452375570792774}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsFacingRight: 0
-  bubbleTrapVisual: {fileID: 0}
+  bubbleTrapVisual: {fileID: 5126176017548555091}
   playerParams: {fileID: 2361621089781178247}
   rb: {fileID: 4949008968883350503}
   playerFreeState: {fileID: 1475084313232745391}
