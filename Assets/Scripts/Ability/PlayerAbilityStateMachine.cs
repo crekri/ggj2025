@@ -12,15 +12,27 @@ public class PlayerAbilityStateMachine : MonoBehaviour, IAbilityInputHandler
 	private void Awake()
 	{
 		foreach (var state in GetComponentsInChildren<PlayerAbilityStateBehaviour>())
+		{
 			state.InitState(this);
-		TransitTo(idleState);
+			state.enabled = false;
+		}
+
+		TransitTo(new PlayerAbilityIdleState.Config());
 	}
 
-	public void TransitTo(PlayerAbilityStateBehaviour newState)
+	public void TransitTo<TConfig>(TConfig config) where TConfig : IStateConfig
 	{
-		if (currentState != null) currentState.OnExit(false);
+		if (currentState != null)
+		{
+			currentState.OnExit(false);
+			currentState.enabled = false;
+		}
+
+		var newState = GetComponent<PlayerAbilityStateBehaviour<TConfig>>();
 		currentState = newState;
-		currentState.OnEnter();
+		newState.OnEnter(config);
+		currentState.enabled = true;
+
 		Debug.Log($"Transitioning from {currentState.GetType().Name} to {newState.GetType().Name}");
 	}
 
@@ -33,4 +45,14 @@ public class PlayerAbilityStateMachine : MonoBehaviour, IAbilityInputHandler
 
 	public void OnBubbleButtonDown() => currentState.OnBubbleButtonDown();
 	public void OnBubbleButtonRelease() => currentState.OnBubbleButtonRelease();
+	public void OnGuardButtonDown() => currentState.OnGuardButtonDown();
+	public void OnGuardButtonRelease() => currentState.OnGuardButtonRelease();
+
+	public Vector2 LastMoveInputUnit { get; private set; }
+
+	public void SetMoveInput(Vector2 lastMoveInput)
+	{
+		if (lastMoveInput.magnitude > .2f)
+			LastMoveInputUnit = lastMoveInput.normalized;
+	}
 }

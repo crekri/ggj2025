@@ -19,4 +19,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         playerStateMachine.OnBubbleHit(info);
     }
+
+    public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
+    {
+        Debug.Log("Nick you do this");
+    }
 }
