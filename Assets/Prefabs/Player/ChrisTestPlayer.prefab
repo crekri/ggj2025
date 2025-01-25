@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 3692047898494339499}
   - component: {fileID: 9032735619619599079}
   - component: {fileID: 1173219053359725040}
+  - component: {fileID: 1306465430278986689}
   m_Layer: 0
   m_Name: Player Ability
   m_TagString: Untagged
@@ -198,6 +199,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmo: 5
+--- !u!114 &1306465430278986689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163413908531896543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d259867940b742bfa151ba80a2b9e5d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleState: {fileID: 3692047898494339499}
+  ParryRecoveryTime: 0.5
+  ParryRadius: 5
+  ParryPower: 1.2
 --- !u!1 &2682500648531656942
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +693,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2301a2f5-7721-4c3c-ae3b-c83220f62846
     m_ActionName: Player/ActionB[/SwitchProControllerHID/buttonEast,/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0477e425-2e27-4841-9772-240b902f64fd
+    m_ActionName: Player/ActionX[/SwitchProControllerHID/buttonWest,/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
