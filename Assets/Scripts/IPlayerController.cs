@@ -1,12 +1,16 @@
 using Bubble;
 using UnityEngine;
 
-public interface IPlayerController
+public interface IPlayerController : IPlayerMovementController
 {
 	bool IsFacingRight { get; }
+	void OnBubbleHit(BubbleHitInfo info);
+}
+
+public interface IPlayerMovementController
+{
 	void SetMoveInput(Vector2 readValue);
 	void SetJumpInput(bool readValueAsButton);
-	void OnBubbleHit(BubbleHitInfo info);
 }
 
 public static class IPlayerControllerExtensions

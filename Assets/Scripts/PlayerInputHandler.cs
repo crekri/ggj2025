@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-	private IPlayerController playerController;
+	private IPlayerMovementController playerController;
 	private PlayerAbilityController playerAbilityController;
 
 	private void Awake()
 	{
-		playerController = GetComponent<IPlayerController>();
+		playerController = GetComponent<IPlayerMovementController>();
 		playerAbilityController = GetComponent<PlayerAbilityController>();
 	}
 
