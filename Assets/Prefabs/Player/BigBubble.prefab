@@ -200,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soapAmount: 0.2
   speed: 5
-  isTrap: 0
+  isTrap: 1
 --- !u!50 &1386364367074800102
 Rigidbody2D:
   serializedVersion: 4
