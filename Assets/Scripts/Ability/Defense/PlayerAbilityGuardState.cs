@@ -1,5 +1,6 @@
 using System;
 using Bubble;
+using Extensions;
 using UnityEngine;
 
 public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbilityGuardState.Config>
@@ -7,7 +8,7 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 	public class Config : IStateConfig { }
 
 	[SerializeField] private float ParryRecoveryTime = 0.5f;
-	[SerializeField] private float ParryRadius = 5f;
+	[SerializeField] private float ParryRadius = 1f;
 
 	[SerializeField] private float ParryPower = 1.2f;
 
@@ -28,7 +29,14 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 				continue;
 
 			var canParry = Vector3.Dot(lastInputUnit, collider.transform.position - transform.position) > 0;
-			bubbleController.Parry(lastInputUnit, ParryPower);
+			if (canParry)
+			{
+				var delta = collider.transform.position - transform.position;
+				delta.z = 0;
+				delta.Normalize();
+				//var parryDirection = lastInputUnit.SnapTo4Directions();
+				bubbleController.Parry(delta, ParryPower);
+			}
 		}
 	}
 

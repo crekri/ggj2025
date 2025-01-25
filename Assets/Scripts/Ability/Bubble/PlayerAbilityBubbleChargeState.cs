@@ -56,9 +56,13 @@ public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour<Player
 		var success = ammoController.TryConsumeAmmo(ammoCost);
 		Assert.IsTrue(success);
 
-		var bubbleShootPoint = transform.position + (Vector3) StateMachine.LastMoveInputUnit * bubbleStartingPosition;
+		var shootDirection = StateMachine.LastMoveInputUnit;
+		shootDirection.x = Mathf.Sign(shootDirection.x);
+		shootDirection.y = 0;
+
+		var bubbleShootPoint = transform.position + (Vector3) shootDirection * bubbleStartingPosition;
 		var bubble = Instantiate(bubblePrefab, bubbleShootPoint, Quaternion.identity);
-		bubble.Setup(StateMachine.LastMoveInputUnit);
+		bubble.ApplyDirection(shootDirection);
 	}
 
 	public override void OnBubbleButtonRelease()
