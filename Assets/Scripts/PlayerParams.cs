@@ -16,6 +16,9 @@ public struct PlayerStat
     public float jumpHoldStrengthRate;
     public float airBorneGravityIncreaseRate;
     public float gravity;
+    
+    public float trapTimer;
+    public float reduceTrapPerClick;
 
 }
 //Store datas
@@ -58,12 +61,11 @@ public class PlayerParams : MonoBehaviour
 public abstract class Modifier
 {
     public abstract PlayerStat ApplyTo(PlayerStat stat);
-    
 }
 
 public class ModifierSlow : Modifier
 {
-
+    
     public override PlayerStat ApplyTo(PlayerStat stat)
     {
         stat.moveVelocity -= stat.moveVelocity/2;
@@ -89,6 +91,16 @@ public class ModifierStick : Modifier
     {
         stat.moveVelocity -= stat.moveVelocity/2;
         stat.jumpVelocity -= stat.jumpVelocity/2;
+        return stat;
+    }
+}
+
+public class ModifierTrapped : Modifier
+{
+    public override PlayerStat ApplyTo(PlayerStat stat)
+    {
+        stat.moveVelocity = 0;
+        stat.jumpVelocity -= stat.jumpVelocity / 5;
         return stat;
     }
 }
