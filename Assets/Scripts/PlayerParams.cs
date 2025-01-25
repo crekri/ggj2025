@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public struct PlayerStat
@@ -17,10 +18,14 @@ public struct PlayerStat
     public float airBorneGravityIncreaseRate;
     public float gravity;
     
-    public float trapTimer;
+    public float trapTimerMult; 
     public float reduceTrapPerClick;
 
+    public float baseStunTime;
 }
+
+
+
 //Store datas
 public class PlayerParams : MonoBehaviour
 {
@@ -28,11 +33,16 @@ public class PlayerParams : MonoBehaviour
 
     public PlayerStat Stat { get; private set; }
 
-    private HashSet<Modifier> _modifiers;
-
+    private HashSet<IParamModifier> _modifiers;
     private void Awake()
     {
         Stat = baseStat;
+        _modifiers = new HashSet<IParamModifier>();                       
+    }
+
+    public void Update()
+    {
+        RefreshStat();
     }
 
     private void RefreshStat()
@@ -44,64 +54,70 @@ public class PlayerParams : MonoBehaviour
             Stat = mod.ApplyTo(Stat);
         }
     }
-    public void AddModifer(Modifier mod)
+    public void AddModifer(IParamModifier mod)
     {
         _modifiers.Add(mod);
-        RefreshStat();
     }
-
-    public void RemoveModifer(Modifier mod)
+    
+    
+    
+    public void RemoveModifer(IParamModifier mod)
     {
         _modifiers.Remove(mod);
-        RefreshStat();
     }
+    
 
 }
 
-public abstract class Modifier
+public interface  IParamModifier
 {
-    public abstract PlayerStat ApplyTo(PlayerStat stat);
+    public PlayerStat ApplyTo(PlayerStat stat);
+    
 }
 
-public class ModifierSlow : Modifier
+public class ModifierSlow : IParamModifier
 {
     
-    public override PlayerStat ApplyTo(PlayerStat stat)
+    public PlayerStat ApplyTo(PlayerStat stat)
     {
         stat.moveVelocity -= stat.moveVelocity/2;
            
         return stat;
     }
+    
 }
 
-public class ModifierStun : Modifier
+public class ModifierStun : IParamModifier
 {
 
-    public override PlayerStat ApplyTo(PlayerStat stat)
+    public PlayerStat ApplyTo(PlayerStat stat)
     {
         stat.moveVelocity = 0;
         stat.jumpVelocity = 0;
         return stat;
     }
+    
 }
 
-public class ModifierStick : Modifier
+public class ModifierStick : IParamModifier
 {
-    public override PlayerStat ApplyTo(PlayerStat stat)
+    public PlayerStat ApplyTo(PlayerStat stat)
     {
         stat.moveVelocity -= stat.moveVelocity/2;
         stat.jumpVelocity -= stat.jumpVelocity/2;
         return stat;
     }
+    
 }
 
-public class ModifierTrapped : Modifier
+public class ModifierTrapped : IParamModifier
 {
-    public override PlayerStat ApplyTo(PlayerStat stat)
+    public PlayerStat ApplyTo(PlayerStat stat)
     {
         stat.moveVelocity = 0;
         stat.jumpVelocity -= stat.jumpVelocity / 5;
         return stat;
     }
+    
 }
 

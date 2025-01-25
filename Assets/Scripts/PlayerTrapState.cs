@@ -24,7 +24,7 @@ public class PlayerTrapState : PlayerState
     {
         rb.velocity *= .25f;
         moveInput = Vector2.zero;
-        _currentLifeTime = playerParams.Stat.trapTimer;
+        _currentLifeTime = playerParams.Stat.trapTimerMult;
         bubbleTrapVisual.SetActive(true);
     }
 
