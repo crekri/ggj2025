@@ -37,14 +37,20 @@ public class PlayerStateMachine : MonoBehaviour
             CurrentState.MyFixedUpdate();
         }
     }
-	
+
+    [SerializeField] private AnimationCurve playerTrapRatio; 
     public void OnBubbleHit(BubbleHitInfo info)
     {
-        if (info.IsTrap)
-        {
-            TransitTo(playerTrapState);
-        }
-        
         playerSoakController.AddSoak(info.SoapAmount);
+        var currentAmount = playerSoakController.Soak;
+
+        if (currentAmount >= 1f)
+        {
+            bool isTrap = Random.Range(0, 1f) <= playerTrapRatio.Evaluate(currentAmount);
+            if (isTrap)
+            {
+                TransitTo(playerTrapState);    
+            }
+        }
     }
 }

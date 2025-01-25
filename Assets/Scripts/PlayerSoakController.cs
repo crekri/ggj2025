@@ -2,7 +2,7 @@
 
 public class PlayerSoakController : MonoBehaviour, IParamModifier
 {
-    [SerializeField] private float maxSoak = 1f;
+    [SerializeField] private float maxSoak = 2f;
     
     public float MaxSoak => maxSoak;
 

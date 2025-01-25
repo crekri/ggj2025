@@ -297,6 +297,7 @@ MonoBehaviour:
   ParryRecoveryTime: 0.5
   ParryRadius: 2
   ParryPower: 1.2
+  GuardHitPower: 1
 --- !u!1 &3055819079861090723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,6 +1162,39 @@ MonoBehaviour:
   playerTrapState: {fileID: 8356069672406429348}
   playerSoakController: {fileID: 5281832176346145149}
   playerParams: {fileID: 2361621089781178247}
+  playerTrapRatio:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.09989787
+      outSlope: 0.09989787
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0010223
+      value: 0.1
+      inSlope: Infinity
+      outSlope: 0.0031156777
+      tangentMode: 7
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.2248106
+    - serializedVersion: 3
+      time: 2
+      value: 0.5
+      inSlope: 1.2434984
+      outSlope: 1.2434984
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.017629743
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1475084313232745391
 MonoBehaviour:
   m_ObjectHideFlags: 0
