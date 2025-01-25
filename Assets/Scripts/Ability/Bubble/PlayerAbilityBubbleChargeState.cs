@@ -19,7 +19,7 @@ public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour<Player
 
 	private float bubbleChargeTimer;
 
-	private bool BigBubbleChargedAndCanFire => bubbleChargeTimer <= 0 && ammoController.HasEnoughAmmo(bigAmmoCost);
+	public bool BigBubbleChargedAndCanFire => bubbleChargeTimer <= 0 && ammoController.HasEnoughAmmo(bigAmmoCost);
 
 	public override void OnEnter(Config config)
 	{
