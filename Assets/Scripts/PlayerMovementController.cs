@@ -26,9 +26,10 @@ public class PlayerMovementController : MonoBehaviour
 		moveInput = input01;
 	}
 
-	public void SetJump()
+	public void SetJumpInput(bool isPressed)
 	{
-		rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
+		if(isPressed)
+			rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
 	}
 
 	private void FixedUpdate()

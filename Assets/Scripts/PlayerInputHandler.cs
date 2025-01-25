@@ -18,6 +18,6 @@ public class PlayerInputHandler : MonoBehaviour
 
 	public void OnJump(InputAction.CallbackContext context)
 	{
-		if (context.performed) playerController.SetJump();
+		playerController.SetJumpInput(context.ReadValueAsButton());
 	}
 }
