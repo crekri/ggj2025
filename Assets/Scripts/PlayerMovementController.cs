@@ -31,6 +31,7 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 
 	private bool _isJumpPressing;
 	private int _numOfJump; //reset by the raycast on ground 
+	
 	public void SetJumpInput(bool isPressed)
 	{
 		if (isPressed)
@@ -39,7 +40,12 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 			{
 				return;
 			}
-			_numOfJump--;
+
+			if (!_isJumpPressing)
+			{
+				_numOfJump-=1;
+			}
+
 			_isJumpPressing = true;
 		}
 		else
@@ -51,7 +57,7 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 
 		if (isPressed)
 		{
-			Debug.Log("Jump");
+			
 			rb.velocity = new Vector2(rb.velocity.x, playerParams.Stat.jumpVelocity);
 		}
 	}
@@ -69,13 +75,15 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 	private void SetAirborne()
 	{
 		isGrounded = false;
+		_currentCoyoteTime = playerParams.Stat.coyoteTime;
 		_currentGravity = playerParams.Stat.gravity;
 		
 	}
 
 	public Transform groundCheck;
 	private float _currentGravity;
-	
+	private float _currentCoyoteTime;
+	private float _velocityX;
 	
 	private void FixedUpdate()
 	{
@@ -101,20 +109,24 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 		}
 		else
 		{
-			SetAirborne();
+			if (isGrounded)
+			{
+				SetAirborne();	
+			}
 		}
 
 		if (!isGrounded)
 		{
 			_currentGravity += playerParams.Stat.airBorneGravityIncreaseRate * Time.fixedDeltaTime; //lerp function required
+			_currentCoyoteTime -= Time.fixedDeltaTime;
 		}
 		                       
 
  
 		var targetVelocity = new Vector2(moveInput.x * playerParams.Stat.moveVelocity, rb.velocity.y - _currentGravity + jumpInput * playerParams.Stat.jumpVelocity);
-		rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref velocityX, RunDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
+		rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, RunDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
 
 	}
 
-	private float velocityX;
+	
 }
