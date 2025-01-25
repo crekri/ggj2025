@@ -22,6 +22,7 @@ public struct PlayerStat
     public float reduceTrapPerClick;
 
     public float baseStunTime;
+    public float knockBackMult;
 }
 
 

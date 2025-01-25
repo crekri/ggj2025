@@ -23,6 +23,7 @@ public class PlayerSoakController : MonoBehaviour, IParamModifier
     [Header("Run Damp Curve")][SerializeField] private AnimationCurve runDampCurve;
     [Header("Base Stun Time Curve")][SerializeField] private AnimationCurve baseStunTimeCurve;
     [Header("Reduce Trap Per Click Curve")][SerializeField] private AnimationCurve clickEscapeCurve;
+    [Header("KnockBack Curve")][SerializeField] private AnimationCurve knockBackCurve;
     public void AddSoak(float amount)
     {
         Soak = Mathf.Min(Soak + amount, maxSoak);
@@ -35,6 +36,7 @@ public class PlayerSoakController : MonoBehaviour, IParamModifier
         stat.runDamp *= runDampCurve.Evaluate(Soak);
         stat.baseStunTime *= baseStunTimeCurve.Evaluate(Soak);
         stat.reduceTrapPerClick *= clickEscapeCurve.Evaluate(Soak);
+        stat.knockBackMult *= knockBackCurve.Evaluate(Soak);
         return stat;
     }
     

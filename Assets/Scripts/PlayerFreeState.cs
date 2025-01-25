@@ -12,6 +12,15 @@ public class PlayerFreeState : PlayerState
         return;
     }
 
+    public void ApplyKnockback(Vector2 lastInputUnit, float guardHitPower)
+    {
+        _currentFreezeTime = playerParams.Stat.baseStunTime;
+        var shootDir = new Vector2(lastInputUnit.x, 0);
+        rb.AddForce(shootDir * guardHitPower * playerParams.Stat.knockBackMult, ForceMode2D.Impulse);
+    }
+
+    private float _currentFreezeTime;
+    
     //Movement control 
     [SerializeField] private PlayerParams playerParams;
     [SerializeField] private Rigidbody2D rb;
@@ -34,12 +43,15 @@ public class PlayerFreeState : PlayerState
 	
     public override void SetMoveInput(Vector2 input01)
     {
+        if(_currentFreezeTime > 0) return;
         moveInput = input01;
+        
     }
 
 	
     public override void SetJumpInput(bool isPressed)
     {
+        if(_currentFreezeTime > 0) return;
         if (isPressed)
         {
             if (_numOfJump <= 0)
@@ -121,18 +133,25 @@ public class PlayerFreeState : PlayerState
             _currentGravity += playerParams.Stat.airBorneGravityIncreaseRate * Time.fixedDeltaTime; //lerp function required
             
         }
-		                       
 
- 
-        var targetVelocity = new Vector2(moveInput.x * playerParams.Stat.moveVelocity, rb.velocity.y - _currentGravity + jumpInput * playerParams.Stat.jumpVelocity);
-        
-        rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, playerParams.Stat.runDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
-        
-        if (Mathf.Abs(rb.velocity.x) > .5f)
+        if (_currentFreezeTime > 0)
         {
-            IsFacingRight = rb.velocity.x > 0;
-            flipTransform.localScale = new Vector3(IsFacingRight ? 1 : -1, 1, 1);
+            _currentFreezeTime -= Time.fixedDeltaTime;
         }
+        else
+        {
+            var targetVelocity = new Vector2(moveInput.x * playerParams.Stat.moveVelocity, rb.velocity.y - _currentGravity + jumpInput * playerParams.Stat.jumpVelocity);
+        
+            rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, playerParams.Stat.runDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
+        
+            if (Mathf.Abs(rb.velocity.x) > .5f)
+            {
+                IsFacingRight = rb.velocity.x > 0;
+                flipTransform.localScale = new Vector3(IsFacingRight ? 1 : -1, 1, 1);
+            }
+        }
+
+        
     }
 
 }

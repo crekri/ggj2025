@@ -866,7 +866,8 @@ MonoBehaviour:
     gravity: 1
     trapTimerMult: 5
     reduceTrapPerClick: 1
-    baseStunTime: 3
+    baseStunTime: 0.3
+    knockBackMult: 5
 --- !u!114 &3868452375570792774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1025,7 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8b2ed984394342863a8e0c7140ac47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSoak: 1
+  maxSoak: 2
   playerParams: {fileID: 2361621089781178247}
   gravityCurve:
     serializedVersion: 2
@@ -1143,6 +1144,30 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 3
       inWeight: 0.0107064275
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  knockBackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0008125305
+      value: 1
+      inSlope: 0.00044015044
+      outSlope: 0.00044015044
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.77937907
+    - serializedVersion: 3
+      time: 1
+      value: 5
+      inSlope: 19.496326
+      outSlope: 19.496326
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.052060384
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

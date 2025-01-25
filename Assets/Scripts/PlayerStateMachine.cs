@@ -53,4 +53,19 @@ public class PlayerStateMachine : MonoBehaviour
             }
         }
     }
+
+    public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
+    {
+        
+        var freeState = GetComponent<PlayerFreeState>();
+        if (CurrentState == freeState)
+        {
+            freeState.ApplyKnockback(lastInputUnit, guardHitPower);
+        }
+        else if(CurrentState == playerTrapState)
+        {
+            Debug.Log($"Destroy{playerParams.gameObject.name}");
+            Destroy(playerParams.gameObject);
+        }
+    }
 }
