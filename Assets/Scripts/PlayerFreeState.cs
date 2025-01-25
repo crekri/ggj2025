@@ -19,7 +19,6 @@ public class PlayerFreeState : PlayerState
     private float jumpHoldTime;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform forwardCheck;
     [SerializeField] private Transform flipTransform;
     private Vector2 velocity;
     private Vector2 moveInput;
@@ -126,6 +125,7 @@ public class PlayerFreeState : PlayerState
 
  
         var targetVelocity = new Vector2(moveInput.x * playerParams.Stat.moveVelocity, rb.velocity.y - _currentGravity + jumpInput * playerParams.Stat.jumpVelocity);
+        
         rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, playerParams.Stat.runDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
         
         if (Mathf.Abs(rb.velocity.x) > .5f)
