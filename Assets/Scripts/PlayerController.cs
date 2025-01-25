@@ -22,6 +22,13 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
     {
-        Debug.Log("Nick you do this");
+        
+        playerStateMachine.OnGuardHit(lastInputUnit,guardHitPower);
+        
+    }
+
+    public void SetAnyKeyDown()
+    {
+        playerStateMachine.CurrentState.SetAnyKeyDown();
     }
 }

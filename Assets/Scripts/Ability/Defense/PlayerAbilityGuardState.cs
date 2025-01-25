@@ -22,11 +22,11 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 		var lastInputUnit = StateMachine.LastMoveInputUnit;
 		var overlaps = Physics2D.OverlapCircleAll(transform.position, ParryRadius);
 		var playerForward = lastInputUnit.normalized;
-
+		var thisPlayerController = transform.GetComponentInParent<IPlayerController>();
 		foreach (var collider in overlaps)
 		{
 			var player = collider.GetComponentInParent<IPlayerController>();
-			if (player != null)
+			if (player != null && player != thisPlayerController)
 			{
 				player.OnGuardHit(lastInputUnit, GuardHitPower);
 			}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Bubble
@@ -6,14 +7,12 @@ namespace Bubble
 	{
 		public BubbleController BubbleController { get; }
 		public Vector2 BubbleVelocity { get; }
-		public bool IsTrap { get; }
 		public float SoapAmount { get; }
 		
-		public BubbleHitInfo(BubbleController bubbleController, Vector2 bubbleVelocity, bool isTrap, float soapAmount)
+		public BubbleHitInfo(BubbleController bubbleController, Vector2 bubbleVelocity,  float soapAmount)
 		{
 			BubbleController = bubbleController;
 			BubbleVelocity = bubbleVelocity;
-			IsTrap = isTrap;
 			SoapAmount = soapAmount;
 		}
 	}

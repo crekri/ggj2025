@@ -4,11 +4,11 @@ public class PlayerMovementController : MonoBehaviour
 {
 	private PlayerParams playerParams;
 	private Rigidbody2D rb;
-	
+
 	public float jumpHoldTime;
 	public LayerMask groundLayer;
 	public Transform groundCheck;
-	
+
 	private Vector2 velocity;
 	private Vector2 moveInput;
 	private float jumpInput;
@@ -18,13 +18,11 @@ public class PlayerMovementController : MonoBehaviour
 	private bool _isGrounded;
 	private float _currentGravity;
 	private float _velocityX;
-	
 
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		playerParams = GetComponent<PlayerParams>();
-		
 	}
 
 	public void SetMoveInput(Vector2 input01)
@@ -32,7 +30,7 @@ public class PlayerMovementController : MonoBehaviour
 		moveInput = input01;
 	}
 
-	
+
 	public void SetJumpInput(bool isPressed)
 	{
 		if (isPressed)
@@ -44,7 +42,7 @@ public class PlayerMovementController : MonoBehaviour
 
 			if (!_isJumpPressing)
 			{
-				_numOfJump-=1;
+				_numOfJump -= 1;
 			}
 
 			_isJumpPressing = true;
@@ -58,11 +56,9 @@ public class PlayerMovementController : MonoBehaviour
 
 		if (isPressed)
 		{
-			
 			rb.velocity = new Vector2(rb.velocity.x, playerParams.Stat.jumpVelocity);
 		}
 	}
-
 
 
 	private void SetGround()
@@ -76,11 +72,9 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		_isGrounded = false;
 		_currentGravity = playerParams.Stat.gravity;
-		
 	}
 
 
-	
 	private void FixedUpdate()
 	{
 		if (_isJumpPressing)
@@ -95,7 +89,7 @@ public class PlayerMovementController : MonoBehaviour
 				jumpInput = 0;
 			}
 		}
-		
+
 		if (Physics2D.OverlapCircle(groundCheck.position, .1f, groundLayer))
 		{
 			if (!_isGrounded)
@@ -107,21 +101,18 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			if (_isGrounded)
 			{
-				SetAirborne();	
+				SetAirborne();
 			}
 		}
 
 		if (!_isGrounded)
 		{
 			_currentGravity += playerParams.Stat.airBorneGravityIncreaseRate * Time.fixedDeltaTime; //lerp function required
-
 		}
-		                       
 
- 
+
 		var targetVelocity = new Vector2(moveInput.x * playerParams.Stat.moveVelocity, rb.velocity.y - _currentGravity + jumpInput * playerParams.Stat.jumpVelocity);
 		rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, playerParams.Stat.runDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
-
 	}
 
 
@@ -142,10 +133,11 @@ public abstract class PlayerState : MonoBehaviour
 	public abstract void OnEnter();
 
 	public abstract void OnExit();
-	
+
 	public abstract void MyFixedUpdate();
 	public abstract void SetMoveInput(Vector2 inputVector);
 	public abstract void SetJumpInput(bool isPressed);
+	public abstract void SetAnyKeyDown();
 
 	public bool IsFacingRight;
 }
