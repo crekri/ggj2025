@@ -17,26 +17,6 @@ public struct PlayerStat
     public float airBorneGravityIncreaseRate;
     public float gravity;
 
-    public PlayerStat(
-        float moveVelocity = 15.0f,
-        float jumpVelocity = 15.0f,
-        float runDamp = 0f,
-        int numberOfJump = 1,
-        float jumpHoldTime = 1.0f,
-        float jumpHoldStrengthRate = 0.05f,
-        float airBorneGravityIncreaseRate = 0.2f,
-        float gravity = 0.3f
-    )
-    {
-        this.moveVelocity = moveVelocity;
-        this.jumpVelocity = jumpVelocity;
-        this.runDamp = runDamp;
-        this.numberOfJump = numberOfJump;
-        this.jumpHoldTime = jumpHoldTime;
-        this.jumpHoldStrengthRate = jumpHoldStrengthRate;
-        this.airBorneGravityIncreaseRate = airBorneGravityIncreaseRate;
-        this.gravity = gravity;
-    }
 }
 //Store datas
 public class PlayerParams : MonoBehaviour
