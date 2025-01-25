@@ -430,6 +430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 765838647}
     m_Modifications:
+    - target: {fileID: 2652570038149778694, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 92949a653cf35184cb89315b371737e3, type: 2}
     - target: {fileID: 5244767202429596360, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.398212
@@ -544,6 +548,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 765838647}
     m_Modifications:
+    - target: {fileID: 2652570038149778694, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 92949a653cf35184cb89315b371737e3, type: 2}
     - target: {fileID: 5244767202429596360, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
       propertyPath: m_LocalScale.x
       value: 6.5517163
@@ -618,6 +626,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 765838647}
     m_Modifications:
+    - target: {fileID: 2652570038149778694, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 92949a653cf35184cb89315b371737e3, type: 2}
     - target: {fileID: 5244767202429596360, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
       propertyPath: m_LocalScale.x
       value: 6.5517163
@@ -687,6 +699,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 765838647}
     m_Modifications:
+    - target: {fileID: 2652570038149778694, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 92949a653cf35184cb89315b371737e3, type: 2}
     - target: {fileID: 5244767202429596360, guid: 492e4dc9f63a24bb3a64687bfad7992d, type: 3}
       propertyPath: m_LocalScale.x
       value: 24.3305
