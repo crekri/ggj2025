@@ -41,7 +41,7 @@ public class PlayerTrapState : PlayerState
 			_currentLifeTime -= Time.deltaTime;
 
 
-			var targetVelocity = new Vector2(moveInput.x + rb.velocity.x * .1f, rb.velocity.y + 2f * Time.fixedDeltaTime);
+			var targetVelocity = new Vector2(moveInput.x + rb.velocity.x * .5f, rb.velocity.y + 2f * Time.fixedDeltaTime);
 			Debug.Log(targetVelocity);
 			rb.velocity = targetVelocity;
 
