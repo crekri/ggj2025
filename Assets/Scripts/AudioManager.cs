@@ -7,7 +7,9 @@ public class AudioManager : MonoBehaviour
     public static AudioManager audioManagerInstance { get; private set; }
 
     public AudioSource backgroundMusicSource;
-    public AudioSource sfxSource;
+    public AudioSource sfxSourcePrefab;
+
+    private List<AudioSource> sfxSources = new List<AudioSource>();
 
     void Awake()
     {
@@ -58,6 +60,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip sfxClip)
     {
+        AudioSource sfxSource = GetAvailableSFXSource();
         sfxSource.PlayOneShot(sfxClip);
     }
 
@@ -68,8 +71,45 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator PlaySFXWithCallback(AudioClip sfxClip, System.Action callback)
     {
+        AudioSource sfxSource = GetAvailableSFXSource();
         sfxSource.PlayOneShot(sfxClip);
         yield return new WaitWhile(() => sfxSource.isPlaying);
         callback?.Invoke();
+    }
+
+    private AudioSource GetAvailableSFXSource()
+    {
+        foreach (AudioSource source in sfxSources)
+        {
+            if (!source.isPlaying)
+            {
+                return source;
+            }
+        }
+
+        AudioSource newSource = Instantiate(sfxSourcePrefab, transform);
+        sfxSources.Add(newSource);
+        return newSource;
+    }
+
+    public void StopAllSFX()
+    {
+        foreach (AudioSource source in sfxSources)
+        {
+            source.Stop();
+        }
+    }
+
+    public void StopBackgroundMusic()
+    {
+        backgroundMusicSource.Stop();
+    }
+
+    public void StopSFX(AudioSource sfxSource)
+    {
+        if (sfxSources.Contains(sfxSource))
+        {
+            sfxSource.Stop();
+        }
     }
 }
