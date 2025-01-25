@@ -11,7 +11,8 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 	[SerializeField] private float ParryRadius = 1f;
 
 	[SerializeField] private float ParryPower = 1.2f;
-
+	[SerializeField] private float GuardHitPower = 1f;
+	
 	private float recoveryTimer = 0;
 
 	public override void OnEnter(Config config)
@@ -24,18 +25,26 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 
 		foreach (var collider in overlaps)
 		{
-			var bubbleController = collider.GetComponentInParent<BubbleController>();
-			if (bubbleController == null)
-				continue;
-
-			var canParry = Vector3.Dot(lastInputUnit, collider.transform.position - transform.position) > 0;
-			if (canParry)
+			var player = collider.GetComponentInParent<IPlayerController>();
+			if (player != null)
 			{
-				var delta = collider.transform.position - transform.position;
-				delta.z = 0;
-				delta.Normalize();
-				//var parryDirection = lastInputUnit.SnapTo4Directions();
-				bubbleController.Parry(delta, ParryPower);
+				player.OnGuardHit(lastInputUnit, GuardHitPower);
+			}
+			else
+			{
+				var bubbleController = collider.GetComponentInParent<BubbleController>();
+				if (bubbleController == null)
+					continue;
+
+				var canParry = Vector3.Dot(lastInputUnit, collider.transform.position - transform.position) > 0;
+				if (canParry)
+				{
+					var delta = collider.transform.position - transform.position;
+					delta.z = 0;
+					delta.Normalize();
+					//var parryDirection = lastInputUnit.SnapTo4Directions();
+					bubbleController.Parry(delta, ParryPower);
+				}
 			}
 		}
 	}

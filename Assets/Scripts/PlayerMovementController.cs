@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Bubble;
-using Chris;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class PlayerMovementController : MonoBehaviour, IPlayerController
+public class PlayerMovementController : MonoBehaviour
 {
 	private PlayerParams playerParams;
 	private Rigidbody2D rb;
@@ -132,10 +126,6 @@ public class PlayerMovementController : MonoBehaviour, IPlayerController
 
 
 	public bool IsFacingRight { get; private set; } = true;
-	public void OnBubbleHit(BubbleHitInfo info)
-	{
-		
-	}
 }
 
 
