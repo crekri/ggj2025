@@ -4,8 +4,7 @@ public class PlayerFreeState : PlayerState
 {
     public override void OnEnter()
     {
-        
-        
+        moveInput = Vector2.zero;
     }
 
     public override void OnExit()
