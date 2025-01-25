@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager audioManagerInstance { get; private set; }
+    public static AudioManager AudioManagerInstance { get; private set; }
 
     public AudioSource backgroundMusicSource;
     public AudioSource sfxSourcePrefab;
 
-    private List<AudioSource> sfxSources = new List<AudioSource>();
+    private readonly List<AudioSource> sfxSources = new();
 
     void Awake()
     {
-        if (audioManagerInstance == null)
+        if (AudioManagerInstance == null)
         {
-            audioManagerInstance = this;
+            AudioManagerInstance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

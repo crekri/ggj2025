@@ -12,7 +12,7 @@ public class GameStateManager : MonoBehaviour
         End
     }
 
-    public static GameStateManager gameStateInstancce { get; private set; }
+    public static GameStateManager GameStateInstancce { get; private set; }
     public GameState currentState;
 
     public delegate void OnGameStateChange(GameState newState);
@@ -20,9 +20,9 @@ public class GameStateManager : MonoBehaviour
 
     void Awake()
     {
-        if (gameStateInstancce == null)
+        if (GameStateInstancce == null)
         {
-            gameStateInstancce = this;
+            GameStateInstancce = this;
             DontDestroyOnLoad(gameObject);
             currentState = GameState.Start;
         }
