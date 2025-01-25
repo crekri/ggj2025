@@ -1,51 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
-    private List<Transform> targets; // The Players to follow
-    private int playerCount = 0;
+    public CinemachineVirtualCamera defaultCamera;
+    public CinemachineVirtualCamera playCamera;
 
     void Start()
     {
-        targets = new List<Transform>();
-
+        defaultCamera.Priority = 0;
+        playCamera.Priority = 1;
+        GameStateManager.GameStateChanged += OnGameStateChanged;
     }
 
-    void Update()
+    void OnDestroy()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        if (playerCount != players.Length)
-        {
-            targets.Clear();
-            foreach (GameObject player in players)
-            {
-                targets.Add(player.transform);
-            }
-            playerCount = players.Length;
-        }
-
-        if (targets.Count > 0)
-        {
-            Vector3 midpoint = CalculateMidpoint();
-            transform.position = midpoint;
-        }
+        GameStateManager.GameStateChanged -= OnGameStateChanged;
     }
 
-    private Vector3 CalculateMidpoint()
+    private void OnGameStateChanged(GameStateManager.GameState newState)
     {
-        if (targets.Count == 0) 
+        switch (newState)
         {
-            return Vector3.zero;
+            case GameStateManager.GameState.Start:
+                defaultCamera.Priority = 0;
+                playCamera.Priority = 1;
+                break;
+            case GameStateManager.GameState.Pause:
+                break;
+            case GameStateManager.GameState.End:
+                defaultCamera.Priority = 1;
+                playCamera.Priority = 0;
+                break;
+            case GameStateManager.GameState.Play:
+                defaultCamera.Priority = 0;
+                playCamera.Priority = 1;
+                break;
         }
-
-        Vector3 sum = Vector3.zero;
-        foreach (Transform target in targets)
-        {
-            sum += target.position;
-        }
-        return sum / targets.Count;
     }
 }
