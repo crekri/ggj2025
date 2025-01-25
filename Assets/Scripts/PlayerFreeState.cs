@@ -157,4 +157,8 @@ public class PlayerFreeState : PlayerState
         
     }
 
+    public bool IsGrounded => _isGrounded;
+
+    public float VelocityY => rb.velocity.y;
+    public float VelocityX => rb.velocity.x;
 }
