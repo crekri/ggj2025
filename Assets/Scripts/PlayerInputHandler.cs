@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerInputHandler : MonoBehaviour
 {
-	private PlayerMovementController playerController;
+	private IPlayerController playerController;
+	private PlayerAbilityController playerAbilityController;
 
 	private void Awake()
 	{
-		playerController = GetComponent<PlayerMovementController>();
+		playerController = GetComponent<IPlayerController>();
+		playerAbilityController = GetComponent<PlayerAbilityController>();
 	}
 
 	public void OnMove(InputAction.CallbackContext context)
@@ -19,5 +20,10 @@ public class PlayerInputHandler : MonoBehaviour
 	public void OnJump(InputAction.CallbackContext context)
 	{
 		playerController.SetJumpInput(context.ReadValueAsButton());
+	}
+
+	public void OnAbility(InputAction.CallbackContext context)
+	{
+		playerAbilityController.SetInput(context.ReadValueAsButton());
 	}
 }
