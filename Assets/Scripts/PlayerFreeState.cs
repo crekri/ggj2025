@@ -80,7 +80,10 @@ public class PlayerFreeState : PlayerState
         }
     }
 
-
+    public override void SetAnyKeyDown()
+    {
+        return;
+    }
 
 
     private void SetGround()
@@ -144,7 +147,7 @@ public class PlayerFreeState : PlayerState
         
             rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, playerParams.Stat.runDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
         
-            if (Mathf.Abs(rb.velocity.x) > .5f)
+            if (Mathf.Abs(moveInput.x) > .5f)
             {
                 IsFacingRight = rb.velocity.x > 0;
                 flipTransform.localScale = new Vector3(IsFacingRight ? 1 : -1, 1, 1);

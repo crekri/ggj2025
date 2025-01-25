@@ -137,6 +137,7 @@ public abstract class PlayerState : MonoBehaviour
 	public abstract void MyFixedUpdate();
 	public abstract void SetMoveInput(Vector2 inputVector);
 	public abstract void SetJumpInput(bool isPressed);
+	public abstract void SetAnyKeyDown();
 
 	public bool IsFacingRight;
 }

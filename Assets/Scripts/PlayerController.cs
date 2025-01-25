@@ -26,4 +26,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
         playerStateMachine.OnGuardHit(lastInputUnit,guardHitPower);
         
     }
+
+    public void SetAnyKeyDown()
+    {
+        playerStateMachine.CurrentState.SetAnyKeyDown();
+    }
 }

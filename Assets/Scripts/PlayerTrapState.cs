@@ -41,10 +41,13 @@ public class PlayerTrapState : PlayerState
 			_currentLifeTime -= Time.deltaTime;
 
 
-			var targetVelocity = new Vector2(moveInput.x + rb.velocity.x * .5f, rb.velocity.y + 2f * Time.fixedDeltaTime);
-			Debug.Log(targetVelocity);
+			var targetVelocity = new Vector2(rb.velocity.x, rb.velocity.y + 2f * Time.fixedDeltaTime);
+			
 			rb.velocity = targetVelocity;
-
+			
+			rb.velocity = targetVelocity + new Vector2(moveInput.x * 5f * Time.fixedDeltaTime,
+				moveInput.y * 5f * Time.fixedDeltaTime);
+			 
 			if (Mathf.Abs(moveInput.x) > .5f)
 			{
 				IsFacingRight = moveInput.x > 0;
@@ -64,12 +67,11 @@ public class PlayerTrapState : PlayerState
 
 	public override void SetJumpInput(bool isPressed)
 	{
-		if (isPressed)
-		{
-			if (!_isJumpPressing)
-			{
-				_currentLifeTime -= playerParams.Stat.reduceTrapPerClick;
-			}
-		}
+		
+	}
+
+	public override void SetAnyKeyDown()
+	{
+		_currentLifeTime -= playerParams.Stat.reduceTrapPerClick;
 	}
 }

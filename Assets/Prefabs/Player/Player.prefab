@@ -865,7 +865,7 @@ MonoBehaviour:
     airBorneGravityIncreaseRate: 0.15
     gravity: 1
     trapTimerMult: 5
-    reduceTrapPerClick: 1
+    reduceTrapPerClick: 0.5
     baseStunTime: 0.3
     knockBackMult: 5
 --- !u!114 &3868452375570792774
