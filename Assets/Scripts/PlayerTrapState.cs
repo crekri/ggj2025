@@ -3,6 +3,7 @@
 public class PlayerTrapState : PlayerState
 {
     //Movement control 
+    [SerializeField]private GameObject bubbleTrapVisual;
     [SerializeField] private PlayerParams playerParams;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerFreeState playerFreeState;
@@ -18,23 +19,31 @@ public class PlayerTrapState : PlayerState
     private float _velocityX;
 
     private float _currentLifeTime;
-	
+    
     public override void OnEnter()
     {
+        rb.velocity *= .25f;
+        moveInput = Vector2.zero;
         _currentLifeTime = playerParams.Stat.trapTimer;
+        bubbleTrapVisual.SetActive(true);
     }
 
     public override void OnExit()
     {
-		
+        bubbleTrapVisual.SetActive(false);
+        rb.velocity = Vector2.zero;
     }
-	
 
     public override void MyFixedUpdate()
     {
         if (_currentLifeTime > 0)
         {
             _currentLifeTime -= Time.deltaTime;
+            
+            
+            var targetVelocity = new Vector2(moveInput.x + rb.velocity.x *.1f, rb.velocity.y + 2f * Time.fixedDeltaTime);
+            Debug.Log(targetVelocity);
+            rb.velocity = targetVelocity;
             
             if (Mathf.Abs(moveInput.x) > .5f)
             {
@@ -60,6 +69,7 @@ public class PlayerTrapState : PlayerState
             if (!_isJumpPressing)
             {
                 _currentLifeTime -= playerParams.Stat.reduceTrapPerClick;
+                
             }
         }
     }

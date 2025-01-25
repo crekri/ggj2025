@@ -4,8 +4,7 @@ public class PlayerFreeState : PlayerState
 {
     public override void OnEnter()
     {
-        
-        
+        moveInput = Vector2.zero;
     }
 
     public override void OnExit()
@@ -116,16 +115,8 @@ public class PlayerFreeState : PlayerState
                 SetAirborne();	
             }
         }
-        
-        if (Physics2D.OverlapCircle(forwardCheck.position, .1f, groundLayer))
-        {
-            if (!_isGrounded)
-            {
-                moveInput.x *= 0.15f;
-            }
-        }
-        
-        
+
+
         if (!_isGrounded)
         {
             _currentGravity += playerParams.Stat.airBorneGravityIncreaseRate * Time.fixedDeltaTime; //lerp function required
