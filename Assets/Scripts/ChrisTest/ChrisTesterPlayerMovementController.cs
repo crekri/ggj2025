@@ -1,3 +1,4 @@
+using System;
 using Bubble;
 
 namespace Chris
@@ -26,6 +27,9 @@ namespace Chris
 		public float SoapAmount { get; private set; }
 		[SerializeField] private TextMesh soapAmountText;
 
+		public EState State { get; private set; } = EState.Free;
+		public float BubbleCountdown;
+
 		private void Awake()
 		{
 			rb = GetComponent<Rigidbody2D>();
@@ -38,8 +42,22 @@ namespace Chris
 
 		public void SetJumpInput(bool isPressed)
 		{
-			if (isPressed)
-				rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
+			switch (State)
+			{
+				case EState.Free:
+					if (isPressed)
+						rb.velocity = new Vector2(rb.velocity.x, JumpVelocity);
+					break;
+				case EState.Bubble:
+					if (isPressed)
+					{
+						rb.velocity = new Vector2(rb.velocity.x, JumpVelocity * .1f);
+						BubbleCountdown -= .1f;
+					}
+
+					break;
+				default: throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		public void OnBubbleHit(BubbleHitInfo info)
@@ -48,17 +66,38 @@ namespace Chris
 			soapAmountText.text = SoapAmount.ToString("P0");
 
 			if (info.IsTrap)
-				Debug.Log("TODO: Trap");
+			{
+				BubbleCountdown = .5f + SoapAmount;
+				State = EState.Bubble;
+			}
 		}
 
 		private void FixedUpdate()
 		{
-			var targetVelocity = new Vector2(moveInput.x * RunSpeed, rb.velocity.y);
-			rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, RunDamp, Mathf.Infinity, Time.fixedDeltaTime);
-			if (Mathf.Abs(rb.velocity.x) > .5f)
+			switch (State)
 			{
-				IsFacingRight = rb.velocity.x > 0;
-				flipTransform.localScale = new Vector3(IsFacingRight ? 1 : -1, 1, 1);
+				case EState.Free:
+				{
+					soapAmountText.text = SoapAmount.ToString("P0");
+					var targetVelocity = new Vector2(moveInput.x * RunSpeed, rb.velocity.y);
+					rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, RunDamp, Mathf.Infinity, Time.fixedDeltaTime);
+					if (Mathf.Abs(rb.velocity.x) > .5f)
+					{
+						IsFacingRight = rb.velocity.x > 0;
+						flipTransform.localScale = new Vector3(IsFacingRight ? 1 : -1, 1, 1);
+					}
+				}
+					break;
+				case EState.Bubble:
+				{
+					soapAmountText.text = "TRAPPED!" + BubbleCountdown.ToString("F2");
+
+					BubbleCountdown -= Time.fixedDeltaTime;
+					if (BubbleCountdown <= 0)
+						State = EState.Free;
+				}
+					break;
+				default: throw new ArgumentOutOfRangeException();
 			}
 		}
 
