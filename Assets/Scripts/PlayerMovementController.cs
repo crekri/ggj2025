@@ -9,13 +9,20 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 	private PlayerParams playerParams;
 	private Rigidbody2D rb;
 	
-	public float RunDamp = 0.15f;
-
+	public float jumpHoldTime;
+	public LayerMask groundLayer;
+	public Transform groundCheck;
+	
 	private Vector2 velocity;
 	private Vector2 moveInput;
 	private float jumpInput;
 
-	private bool isGrounded;
+	private bool _isJumpPressing;
+	private int _numOfJump; //reset by the raycast on ground 
+	private bool _isGrounded;
+	private float _currentGravity;
+	private float _velocityX;
+	
 
 	private void Awake()
 	{
@@ -29,8 +36,6 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 		moveInput = input01;
 	}
 
-	private bool _isJumpPressing;
-	private int _numOfJump; //reset by the raycast on ground 
 	
 	public void SetJumpInput(bool isPressed)
 	{
@@ -62,28 +67,23 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 		}
 	}
 
-	public float jumpHoldTime;
-	public LayerMask groundLayer;
+
 
 	private void SetGround()
 	{
-		isGrounded = true;
+		_isGrounded = true;
 		_currentGravity = 0;
 		_numOfJump = playerParams.Stat.numberOfJump;
 	}
 
 	private void SetAirborne()
 	{
-		isGrounded = false;
-		_currentCoyoteTime = playerParams.Stat.coyoteTime;
+		_isGrounded = false;
 		_currentGravity = playerParams.Stat.gravity;
 		
 	}
 
-	public Transform groundCheck;
-	private float _currentGravity;
-	private float _currentCoyoteTime;
-	private float _velocityX;
+
 	
 	private void FixedUpdate()
 	{
@@ -102,29 +102,29 @@ public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
 		
 		if (Physics2D.OverlapCircle(groundCheck.position, .1f, groundLayer))
 		{
-			if (!isGrounded)
+			if (!_isGrounded)
 			{
 				SetGround();
 			}
 		}
 		else
 		{
-			if (isGrounded)
+			if (_isGrounded)
 			{
 				SetAirborne();	
 			}
 		}
 
-		if (!isGrounded)
+		if (!_isGrounded)
 		{
 			_currentGravity += playerParams.Stat.airBorneGravityIncreaseRate * Time.fixedDeltaTime; //lerp function required
-			_currentCoyoteTime -= Time.fixedDeltaTime;
+
 		}
 		                       
 
  
 		var targetVelocity = new Vector2(moveInput.x * playerParams.Stat.moveVelocity, rb.velocity.y - _currentGravity + jumpInput * playerParams.Stat.jumpVelocity);
-		rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, RunDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
+		rb.velocity = new Vector2(Mathf.SmoothDamp(rb.velocity.x, targetVelocity.x, ref _velocityX, playerParams.Stat.runDamp, Mathf.Infinity, Time.fixedDeltaTime), targetVelocity.y);
 
 	}
 

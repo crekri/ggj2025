@@ -9,10 +9,9 @@ public struct PlayerStat
     //Movement
     public float moveVelocity;
     public float jumpVelocity;
+    public float runDamp;
     //Jump
     public int numberOfJump;
-    public float coyoteTime;
-    public float jumpBufferTime;
     public float jumpHoldTime;
     public float jumpHoldStrengthRate;
     public float airBorneGravityIncreaseRate;
