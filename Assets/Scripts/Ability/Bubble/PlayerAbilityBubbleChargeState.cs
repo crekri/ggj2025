@@ -1,13 +1,14 @@
 using Bubble;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
-public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour
+public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour<PlayerAbilityBubbleChargeState.Config>
 {
-	[SerializeField] private PlayerAbilityIdleState idleState;
+	public class Config : IStateConfig { }
 
+	[SerializeField] private float bubbleStartingPosition = 1;
 	[SerializeField] private MonoBehaviour playerControllerObject;
-	private IPlayerController playerController => playerControllerObject as IPlayerController;
 	[SerializeField] private PlayerAmmoController ammoController;
 	[SerializeField] private float smallAmmoCost = 1f;
 	[SerializeField] private float bigAmmoCost = 3f;
@@ -16,13 +17,11 @@ public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour
 	[SerializeField] private BubbleController bigBubblePrefab;
 	[SerializeField] private float BigBubbleChargeDuration = .5f;
 
-	[SerializeField] private Transform bubbleShootPoint;
-
 	private float bubbleChargeTimer;
 
 	private bool BigBubbleChargedAndCanFire => bubbleChargeTimer <= 0 && ammoController.HasEnoughAmmo(bigAmmoCost);
 
-	public override void OnEnter()
+	public override void OnEnter(Config config)
 	{
 		bubbleChargeTimer = BigBubbleChargeDuration;
 	}
@@ -57,12 +56,13 @@ public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour
 		var success = ammoController.TryConsumeAmmo(ammoCost);
 		Assert.IsTrue(success);
 
-		var bubble = Instantiate(bubblePrefab, bubbleShootPoint.position, Quaternion.identity);
-		bubble.Setup(playerController.GetOrientation());
+		var bubbleShootPoint = transform.position + (Vector3) StateMachine.LastMoveInputUnit * bubbleStartingPosition;
+		var bubble = Instantiate(bubblePrefab, bubbleShootPoint, Quaternion.identity);
+		bubble.Setup(StateMachine.LastMoveInputUnit);
 	}
 
 	public override void OnBubbleButtonRelease()
 	{
-		TransitionTo(idleState);
+		StateMachine.TransitTo(new PlayerAbilityIdleState.Config());
 	}
 }

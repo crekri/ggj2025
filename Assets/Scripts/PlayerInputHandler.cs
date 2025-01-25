@@ -30,9 +30,18 @@ public class PlayerInputHandler : MonoBehaviour
 		if (context.canceled)
 			playerAbilityController.OnBubbleButtonRelease();
 	}
+	
+	public void OnGuard(InputAction.CallbackContext context)
+	{
+		if (context.performed)
+			playerAbilityController.OnGuardButtonDown();
+		if (context.canceled)
+			playerAbilityController.OnGuardButtonRelease();
+	}
 
 	private void Update()
 	{
 		playerController.SetMoveInput(lastMoveInput);
+		playerAbilityController.SetMoveInput(lastMoveInput);
 	}
 }

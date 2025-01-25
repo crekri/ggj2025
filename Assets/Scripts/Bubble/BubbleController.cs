@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Bubble
 {
 	public class BubbleController : MonoBehaviour
 	{
 		[SerializeField] private float soapAmount;
-		[SerializeField] private float speed;
+		[FormerlySerializedAs("speed")] [SerializeField] private float startingSpeed;
 		[SerializeField] private bool isTrap;
 
 		private Vector2 velocity;
@@ -14,7 +15,7 @@ namespace Bubble
 
 		public void Setup(Vector2 direction01)
 		{
-			this.velocity = direction01 * speed;
+			this.velocity = direction01 * startingSpeed;
 		}
 
 		public void FixedUpdate()
@@ -32,6 +33,12 @@ namespace Bubble
 				playerController.OnBubbleHit(hitInfo);
 				Destroy(gameObject);
 			}
+		}
+
+		public void Parry(Vector2 direction, float strengthPercentage)
+		{
+			var speed = Mathf.Max(startingSpeed, velocity.magnitude);
+			this.velocity = direction.normalized * (speed * strengthPercentage);
 		}
 	}
 }
