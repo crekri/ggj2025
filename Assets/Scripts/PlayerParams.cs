@@ -92,4 +92,24 @@ public class ModifierSlow : Modifier
     }
 }
 
+public class ModifierStun : Modifier
+{
+
+    public override PlayerStat ApplyTo(PlayerStat stat)
+    {
+        stat.moveVelocity = 0;
+        stat.jumpVelocity = 0;
+        return stat;
+    }
+}
+
+public class ModifierStick : Modifier
+{
+    public override PlayerStat ApplyTo(PlayerStat stat)
+    {
+        stat.moveVelocity -= stat.moveVelocity/2;
+        stat.jumpVelocity -= stat.jumpVelocity/2;
+        return stat;
+    }
+}
 
