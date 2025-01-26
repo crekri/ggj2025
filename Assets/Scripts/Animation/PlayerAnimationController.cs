@@ -38,6 +38,7 @@ namespace Animation
 		public AnimationClip attack_charge;
 		public AnimationClip attack_Charge_complete;
 		public AnimationClip attack_release;
+		public AnimationClip deflect;
 
 		public float AnimationSpeedMultiplier { get; private set; }
 
@@ -85,7 +86,8 @@ namespace Animation
 					if (playerAbilityBubbleChargeState.BigBubbleChargedAndCanFire)
 						return attack_Charge_complete;
 					return attack_charge;
-				case PlayerAbilityGuardState playerAbilityGuardState: break;
+				case PlayerAbilityGuardState playerAbilityGuardState:
+					return deflect;
 				default: throw new ArgumentOutOfRangeException();
 			}
 
