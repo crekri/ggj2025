@@ -15,6 +15,7 @@ namespace Match
 		[SerializeField] private AnimatedText roundText;
 
 		[SerializeField] private PlayerStatViewGroup statViewGroup;
+		[SerializeField] private MatchPlayerConfigsSO configs;
 		
 		public override void OnEnter()
 		{
@@ -24,7 +25,7 @@ namespace Match
 			for (var id = 0; id < players.Count; id++)
 			{
 				var player = players[id];
-				player.Init(spawnPoints.GetNonOccupiedSpawnPoint().position, id);
+				player.Init(spawnPoints.GetNonOccupiedSpawnPoint().position, id, configs.Get(id));
 			}
 
 			statViewGroup.Init(matchPlayerManager.Players);

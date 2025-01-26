@@ -1,4 +1,5 @@
 ﻿using Bubble;
+using Match;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IPlayerController
@@ -7,6 +8,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
 	public PlayerStateMachine playerStateMachine;
 	public PlayerAbilityStateMachine playerAbilityStateMachine;
 
+	[SerializeField] private SpriteRenderer playerColorSpriteRenderer;
+	
 	public void SetMoveInput(Vector2 readValue)
 	{
 		playerStateMachine.CurrentState.SetMoveInput(readValue);
@@ -34,9 +37,12 @@ public class PlayerController : MonoBehaviour, IPlayerController
 		playerStateMachine.CurrentState.SetAnyKeyDown();
 	}
 
-	public void Init(Vector3 spawnPosition, int id)
+	public void Init(Vector3 spawnPosition, int id, MatchPlayerConfig matchPlayerConfig)
 	{
 		Id = id;
 		playerStateMachine.SetPosition(spawnPosition);
+		var color = matchPlayerConfig.Color;
+		color.a = .5f;
+		playerColorSpriteRenderer.color = color;
 	}
 }
