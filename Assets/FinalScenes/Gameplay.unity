@@ -7572,6 +7572,7 @@ MonoBehaviour:
   infoText: {fileID: 1706627499}
   roundText: {fileID: 1706627499}
   statViewGroup: {fileID: 213883527}
+  configs: {fileID: 11400000, guid: 6c3389b8583ef4ea08016aae74fd0e68, type: 2}
 --- !u!1 &1634365879
 GameObject:
   m_ObjectHideFlags: 0
@@ -8134,8 +8135,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game Over
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8def302d38f68ab438e30f2b23e1607b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 5424a9c1c35be2440a7b513bd1dd868f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
