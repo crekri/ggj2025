@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPlayerController
 {
 	public int Id { get; private set; }
+	public MatchPlayerConfig Config { get; private set; }
 	public PlayerStateMachine playerStateMachine;
 	public PlayerAbilityStateMachine playerAbilityStateMachine;
 
@@ -45,9 +46,15 @@ public class PlayerController : MonoBehaviour, IPlayerController
 	public void Init(Vector3 spawnPosition, int id, MatchPlayerConfig matchPlayerConfig)
 	{
 		Id = id;
+		Config = matchPlayerConfig;
 		playerStateMachine.SetPosition(spawnPosition);
 		var color = matchPlayerConfig.Color;
 		color.a = .5f;
 		playerColorSpriteRenderer.color = color;
+	}
+	
+	public void OnDestroy()
+	{
+		MatchStateGame.Instance.OnPlayerKilled(this);
 	}
 }

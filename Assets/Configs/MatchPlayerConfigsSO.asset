@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerConfigs:
   - Color: {r: 0.4575472, g: 0.6585476, b: 1, a: 1}
+    Name: Player 1
   - Color: {r: 1, g: 0.45882356, b: 0.630427, a: 1}
+    Name: Player 2
   - Color: {r: 1, g: 0.9675698, b: 0.45882356, a: 1}
+    Name: Player 3
   - Color: {r: 0.4575472, g: 1, b: 0.71156937, a: 1}
+    Name: Player 4
