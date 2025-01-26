@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4178322898941426097, guid: 1533dd1d149bb4a69b3096f283c9b198, type: 3}
       propertyPath: soapAmount
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4178322898941426097, guid: 1533dd1d149bb4a69b3096f283c9b198, type: 3}
       propertyPath: startingSpeed

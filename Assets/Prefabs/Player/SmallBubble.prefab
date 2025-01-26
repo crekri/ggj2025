@@ -198,9 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c07ae2b573449b3992ce4fbbdee7e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soapAmount: 0.02
+  wallPopDegree: 45
+  soapAmount: 0.05
   startingSpeed: 10
-  isTrap: 0
+  isBigBubble: 0
+  onMergeGrowAmount: 0.1
   forwardSpeedCurve:
     serializedVersion: 2
     m_Curve:
