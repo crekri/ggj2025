@@ -10,7 +10,7 @@ namespace Match
 		{
 			for (var i = 0; i < ammoIcons.Length; i++)
 			{
-				ammoIcons[i].gameObject.SetActive(i < newAmount);
+				ammoIcons[i].gameObject.SetActive(i <= newAmount + 1);
 			}
 		}
 	}

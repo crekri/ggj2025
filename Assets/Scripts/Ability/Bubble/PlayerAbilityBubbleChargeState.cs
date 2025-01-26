@@ -54,7 +54,8 @@ public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour<Player
 	private void FireBubble(BubbleController bubblePrefab, float ammoCost)
 	{
 		var success = ammoController.TryConsumeAmmo(ammoCost);
-		Assert.IsTrue(success);
+		if (!success)
+			return;
 
 		var shootDirection = StateMachine.LastMoveInputUnit;
 		shootDirection.x = Mathf.Sign(shootDirection.x);
