@@ -18,7 +18,7 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 	public override void OnEnter(Config config)
 	{
 		recoveryTimer = ParryRecoveryTime;
-		AudioSource.PlayClipAtPoint(deflectSound, transform.position, 2f);
+		AudioSource.PlayClipAtPoint(deflectSound, transform.position, 5f);
 		
 		var lastInputUnit = StateMachine.LastMoveInputUnit;
 		var overlaps = Physics2D.OverlapCircleAll(transform.position, ParryRadius);
