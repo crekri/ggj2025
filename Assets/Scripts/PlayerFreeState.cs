@@ -38,8 +38,9 @@ public class PlayerFreeState : PlayerState
     private bool _isGrounded;
     private float _currentGravity;
     private float _velocityX;
+    
+    [SerializeField] private ParticleSystem jumpFx;
 
-	
 	
     public override void SetMoveInput(Vector2 input01)
     {
@@ -75,7 +76,7 @@ public class PlayerFreeState : PlayerState
 
         if (isPressed)
         {
-			
+            Instantiate(jumpFx, transform.position, Quaternion.identity);
             rb.velocity = new Vector2(rb.velocity.x, playerParams.Stat.jumpVelocity);
         }
     }

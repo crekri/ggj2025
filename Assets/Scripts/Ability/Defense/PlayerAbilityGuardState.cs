@@ -14,11 +14,12 @@ public class PlayerAbilityGuardState : PlayerAbilityStateBehaviour<PlayerAbility
 	[SerializeField] private float GuardHitPower = 1f;
 	
 	private float recoveryTimer = 0;
-
+	[SerializeField] private AudioClip deflectSound;
 	public override void OnEnter(Config config)
 	{
 		recoveryTimer = ParryRecoveryTime;
-
+		AudioSource.PlayClipAtPoint(deflectSound, transform.position, 2f);
+		
 		var lastInputUnit = StateMachine.LastMoveInputUnit;
 		var overlaps = Physics2D.OverlapCircleAll(transform.position, ParryRadius);
 		var playerForward = lastInputUnit.normalized;

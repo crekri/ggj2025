@@ -700,7 +700,7 @@ MonoBehaviour:
     trapTimerMult: 7
     reduceTrapPerClick: 0.5
     baseStunTime: 0.3
-    knockBackMult: 5
+    knockBackMult: 3
 --- !u!114 &3868452375570792774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,6 +714,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStateMachine: {fileID: 5806986273939953987}
+  playerAbilityStateMachine: {fileID: 0}
+  playerColorSpriteRenderer: {fileID: 0}
 --- !u!1 &6266272731676466276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,6 +1019,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17132d8d81c84c72a8dca591c7e80848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  playerFreeState: {fileID: 0}
+  playerInvisibleState: {fileID: 0}
   playerTrapState: {fileID: 8356069672406429348}
   playerSoakController: {fileID: 5281832176346145149}
   playerParams: {fileID: 2361621089781178247}
@@ -1062,6 +1067,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  pplHit: {fileID: 0}
+  pplHitSound: {fileID: 0}
+  pplDeath: {fileID: 0}
 --- !u!114 &1475084313232745391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6112,6 +6120,7 @@ MonoBehaviour:
     attack_charge: {fileID: 7400000, guid: c2b796e50778e45cb8d9c19843939d83, type: 2}
     attack_Charge_complete: {fileID: 7400000, guid: 4a7e05afd656e482fa40eb06dfbf9326, type: 2}
     attack_release: {fileID: 7400000, guid: a282dba643cd846dd95a79a24125e78f, type: 2}
+    deflect: {fileID: 0}
     walkSpeedSpeedBase: 3
 --- !u!1 &7217846289757685545
 GameObject:

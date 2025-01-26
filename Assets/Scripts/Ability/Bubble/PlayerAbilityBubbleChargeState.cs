@@ -49,6 +49,7 @@ public class PlayerAbilityBubbleChargeState : PlayerAbilityStateBehaviour<Player
 			FireBubble(bigBubblePrefab, bigAmmoCost);
 		else
 			FireBubble(smallBubblePrefab, smallAmmoCost);
+		
 	}
 
 	private void FireBubble(BubbleController bubblePrefab, float ammoCost)
