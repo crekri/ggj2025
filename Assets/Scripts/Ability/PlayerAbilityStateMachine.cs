@@ -5,7 +5,7 @@ public class PlayerAbilityStateMachine : MonoBehaviour, IAbilityInputHandler
 {
 	[SerializeField] private PlayerAmmoController ammoController;
 	[SerializeField] private PlayerAbilityIdleState idleState;
-	private PlayerAbilityStateBehaviour currentState;
+	public PlayerAbilityStateBehaviour CurrentState { get; private set; }
 
 	[SerializeField] private float ammoRecoveryRate = 3f;
 
@@ -22,31 +22,31 @@ public class PlayerAbilityStateMachine : MonoBehaviour, IAbilityInputHandler
 
 	public void TransitTo<TConfig>(TConfig config) where TConfig : IStateConfig
 	{
-		if (currentState != null)
+		if (CurrentState != null)
 		{
-			currentState.OnExit(false);
-			currentState.enabled = false;
+			CurrentState.OnExit(false);
+			CurrentState.enabled = false;
 		}
 
 		var newState = GetComponent<PlayerAbilityStateBehaviour<TConfig>>();
-		currentState = newState;
+		CurrentState = newState;
 		newState.OnEnter(config);
-		currentState.enabled = true;
+		CurrentState.enabled = true;
 
-		Debug.Log($"Transitioning from {currentState.GetType().Name} to {newState.GetType().Name}");
+		Debug.Log($"Transitioning from {CurrentState.GetType().Name} to {newState.GetType().Name}");
 	}
 
 	public void Update()
 	{
-		currentState.OnUpdate();
+		CurrentState.OnUpdate();
 
 		ammoController.GrantAmmo(ammoRecoveryRate * Time.deltaTime);
 	}
 
-	public void OnBubbleButtonDown() => currentState.OnBubbleButtonDown();
-	public void OnBubbleButtonRelease() => currentState.OnBubbleButtonRelease();
-	public void OnGuardButtonDown() => currentState.OnGuardButtonDown();
-	public void OnGuardButtonRelease() => currentState.OnGuardButtonRelease();
+	public void OnBubbleButtonDown() => CurrentState.OnBubbleButtonDown();
+	public void OnBubbleButtonRelease() => CurrentState.OnBubbleButtonRelease();
+	public void OnGuardButtonDown() => CurrentState.OnGuardButtonDown();
+	public void OnGuardButtonRelease() => CurrentState.OnGuardButtonRelease();
 
 	public Vector2 LastMoveInputUnit { get; private set; }
 

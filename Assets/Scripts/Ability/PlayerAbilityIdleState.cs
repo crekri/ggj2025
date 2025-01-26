@@ -5,20 +5,24 @@ public class PlayerAbilityIdleState : PlayerAbilityStateBehaviour<PlayerAbilityI
 {
 	public class Config : IStateConfig
 	{
-		public Config(float stateTransitionCooldown = 0)
+		public Config(float stateTransitionCooldown = 0, PlayerAbilityStateBehaviour fromState = null)
 		{
 			StateTransitionCooldown = stateTransitionCooldown;
+			FromStateNullable = fromState;
 		}
 
+		public PlayerAbilityStateBehaviour FromStateNullable { get; }
 		public float StateTransitionCooldown { get; }
 	}
 
+	public PlayerAbilityStateBehaviour FromStateNullable { get; private set; }
 	[SerializeField] private PlayerAbilityBubbleChargeState bubbleChargeState;
 
 	private float transitionTimer;
 
 	public override void OnEnter(Config config)
 	{
+		FromStateNullable = config.FromStateNullable;
 		transitionTimer = config.StateTransitionCooldown;
 	}
 
