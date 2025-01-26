@@ -15,6 +15,9 @@ namespace Match
 
 		public void OnPlayerJoined(PlayerInput playerInput)
 		{
+			var playerController = playerInput.GetComponent<PlayerController>();
+			playerController.playerStateMachine.TransitTo(playerController.playerStateMachine.PlayerInvisibleState);
+			
 			players.Add(playerInput.GetComponent<PlayerController>());
 		}
 

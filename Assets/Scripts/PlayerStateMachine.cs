@@ -3,69 +3,81 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    [SerializeField]private PlayerTrapState playerTrapState;
-    [SerializeField]private PlayerSoakController playerSoakController;
-    [SerializeField]private PlayerParams playerParams;
-    public PlayerState CurrentState { get; private set; }
-    public PlayerParams PlayerParams { get; private set; }
+	[SerializeField] private Rigidbody2D rb;
 
-    public void Awake()
-    {
-        foreach (var state in GetComponents<PlayerState>())
-        {
-            state.Init(this);
-        }
-		
-        TransitTo(GetComponent<PlayerFreeState>());
-    }
+	public PlayerFreeState PlayerFreeState => playerFreeState;
+	public PlayerInvisibleState PlayerInvisibleState => playerInvisibleState;
+	public PlayerTrapState PlayerTrapState => playerTrapState;
 
-    public void TransitTo(PlayerState playerState)
-    {
-        if (CurrentState != null)
-        {
-            CurrentState.OnExit();
-        }
+	[SerializeField] private PlayerFreeState playerFreeState;
+	[SerializeField] private PlayerInvisibleState playerInvisibleState;
+	[SerializeField] private PlayerTrapState playerTrapState;
+	[SerializeField] private PlayerSoakController playerSoakController;
+	[SerializeField] private PlayerParams playerParams;
+	public PlayerState CurrentState { get; private set; }
+	public PlayerParams PlayerParams { get; private set; }
 
-        CurrentState = playerState;
-        CurrentState.OnEnter();
-    }
+	public void Awake()
+	{
+		foreach (var state in GetComponents<PlayerState>())
+		{
+			state.Init(this);
+		}
 
-    public void FixedUpdate()
-    {
-        if (CurrentState != null)
-        {
-            CurrentState.MyFixedUpdate();
-        }
-    }
+		TransitTo(GetComponent<PlayerFreeState>());
+	}
 
-    [SerializeField] private AnimationCurve playerTrapRatio; 
-    public void OnBubbleHit(BubbleHitInfo info)
-    {
-        playerSoakController.AddSoak(info.SoapAmount);
-        var currentAmount = playerSoakController.Soak;
+	public void TransitTo(PlayerState playerState)
+	{
+		if (CurrentState != null)
+		{
+			CurrentState.OnExit();
+		}
 
-        if (currentAmount >= 1f)
-        {
-            bool isTrap = Random.Range(0, 1f) <= playerTrapRatio.Evaluate(currentAmount);
-            if (isTrap)
-            {
-                TransitTo(playerTrapState);    
-            }
-        }
-    }
+		CurrentState = playerState;
+		CurrentState.OnEnter();
+	}
 
-    public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
-    {
-        
-        var freeState = GetComponent<PlayerFreeState>();
-        if (CurrentState == freeState)
-        {
-            freeState.ApplyKnockback(lastInputUnit, guardHitPower);
-        }
-        else if(CurrentState == playerTrapState)
-        {
-            Debug.Log($"Destroy{playerParams.gameObject.name}");
-            Destroy(playerParams.gameObject);
-        }
-    }
+	public void FixedUpdate()
+	{
+		if (CurrentState != null)
+		{
+			CurrentState.MyFixedUpdate();
+		}
+	}
+
+	[SerializeField] private AnimationCurve playerTrapRatio;
+
+	public void OnBubbleHit(BubbleHitInfo info)
+	{
+		playerSoakController.AddSoak(info.SoapAmount);
+		var currentAmount = playerSoakController.Soak;
+
+		if (currentAmount >= 1f)
+		{
+			bool isTrap = Random.Range(0, 1f) <= playerTrapRatio.Evaluate(currentAmount);
+			if (isTrap)
+			{
+				TransitTo(playerTrapState);
+			}
+		}
+	}
+
+	public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
+	{
+		if (CurrentState == PlayerFreeState)
+		{
+			PlayerFreeState.ApplyKnockback(lastInputUnit, guardHitPower);
+		}
+		else if (CurrentState == playerTrapState)
+		{
+			Debug.Log($"Destroy{playerParams.gameObject.name}");
+			Destroy(playerParams.gameObject);
+		}
+	}
+
+	public void SetPosition(Vector3 targetPosition)
+	{
+		rb.transform.position = targetPosition;
+	}
 }

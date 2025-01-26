@@ -28,7 +28,7 @@ namespace Animation
 	public class AnimationDecisionTree
 	{
 		[SerializeField] private PlayerStateMachine playerStateMachine;
-		[SerializeField] private PlayerAbilityStateMachine abilityStateMachine; 
+		[SerializeField] private PlayerAbilityStateMachine abilityStateMachine;
 
 		public AnimationClip idle;
 		public AnimationClip walk;
@@ -53,7 +53,7 @@ namespace Animation
 					var abilityClip = GetAnimationClipFromAbilityOrNull();
 					if (abilityClip != null)
 						return abilityClip;
-					
+
 					if (!playerFreeState.IsGrounded)
 						return playerFreeState.VelocityY > 0 ? jump_up : jump_fall;
 
@@ -67,6 +67,8 @@ namespace Animation
 					return idle;
 				case PlayerTrapState playerTrapState:
 					return trap;
+				case PlayerInvisibleState invisibleState:
+					return idle;
 				default: throw new ArgumentOutOfRangeException();
 			}
 		}

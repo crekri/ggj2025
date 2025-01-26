@@ -824,6 +824,7 @@ GameObject:
   - component: {fileID: 5806986273939953987}
   - component: {fileID: 1475084313232745391}
   - component: {fileID: 8356069672406429348}
+  - component: {fileID: 1436425292245521422}
   m_Layer: 0
   m_Name: StateMachine
   m_TagString: Untagged
@@ -1016,6 +1017,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17132d8d81c84c72a8dca591c7e80848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 4949008968883350503}
+  playerFreeState: {fileID: 1475084313232745391}
+  playerInvisibleState: {fileID: 1436425292245521422}
   playerTrapState: {fileID: 8356069672406429348}
   playerSoakController: {fileID: 5281832176346145149}
   playerParams: {fileID: 2361621089781178247}
@@ -1090,6 +1094,20 @@ MonoBehaviour:
   rb: {fileID: 4949008968883350503}
   playerFreeState: {fileID: 1475084313232745391}
   flipTransform: {fileID: 8009107767547634256}
+--- !u!114 &1436425292245521422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805268912122411439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef98203a381a45bd8aa0547b2d2c8526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsFacingRight: 0
+  rb: {fileID: 4949008968883350503}
 --- !u!1 &7031507772409463835
 GameObject:
   m_ObjectHideFlags: 0

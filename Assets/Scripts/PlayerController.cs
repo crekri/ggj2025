@@ -31,4 +31,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         playerStateMachine.CurrentState.SetAnyKeyDown();
     }
+
+    public void Respawn(Vector3 targetPosition)
+    {
+        playerStateMachine.SetPosition(targetPosition);
+    }
 }
