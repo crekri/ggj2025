@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -13,15 +12,22 @@ namespace Match
 		[SerializeField] private GameObject gameUi;
 
 		[SerializeField] private AnimatedText infoText;
+		[SerializeField] private AnimatedText roundText;
 
+		[SerializeField] private PlayerStatViewGroup statViewGroup;
+		
 		public override void OnEnter()
 		{
 			gameUi.SetActive(true);
 
 			var players = this.matchPlayerManager.Players;
-			foreach (var player in players)
-				player.Respawn(spawnPoints.GetNonOccupiedSpawnPoint().position);
+			for (var id = 0; id < players.Count; id++)
+			{
+				var player = players[id];
+				player.Init(spawnPoints.GetNonOccupiedSpawnPoint().position, id);
+			}
 
+			statViewGroup.Init(matchPlayerManager.Players);
 			StartCoroutine(IEnter());
 		}
 

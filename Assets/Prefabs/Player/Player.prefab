@@ -713,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStateMachine: {fileID: 5806986273939953987}
+  playerAbilityStateMachine: {fileID: 7515035585803977066}
 --- !u!1 &6266272731676466276
 GameObject:
   m_ObjectHideFlags: 0

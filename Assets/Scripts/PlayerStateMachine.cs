@@ -5,6 +5,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
 	[SerializeField] private Rigidbody2D rb;
 
+	public PlayerSoakController SoakController => playerSoakController;
 	public PlayerFreeState PlayerFreeState => playerFreeState;
 	public PlayerInvisibleState PlayerInvisibleState => playerInvisibleState;
 	public PlayerTrapState PlayerTrapState => playerTrapState;

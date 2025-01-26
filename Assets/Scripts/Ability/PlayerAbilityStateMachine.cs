@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerAbilityStateMachine : MonoBehaviour, IAbilityInputHandler
 {
+	public PlayerAmmoController AmmoController => ammoController;
 	[SerializeField] private PlayerAmmoController ammoController;
 	[SerializeField] private PlayerAbilityIdleState idleState;
 	public PlayerAbilityStateBehaviour CurrentState { get; private set; }

@@ -5,19 +5,20 @@ namespace Match
 {
 	public class AnimatedText : MonoBehaviour
 	{
+		public TextMeshProUGUI Text => text;
 		[SerializeField] private TextMeshProUGUI text;
 		[SerializeField] private float animateSpeed = 10f;
 		private float showTimer = 0;
 		private float targetScale = 1f;
 
-		public void ChangeText(string newMessage, float targetScale = 1f, float showDuration = 1f)
+		public void ChangeText(string newMessage, float startScale = .8f, float targetScale = 1f, float showDuration = 1f)
 		{
 			showTimer = showDuration;
 			if (text.text == newMessage && showTimer > 0)
 				return;
 
 			text.text = newMessage;
-			gameObject.transform.localScale = Vector3.one * .8f;
+			gameObject.transform.localScale = Vector3.one * startScale;
 			this.targetScale = targetScale;
 		}
 

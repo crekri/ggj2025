@@ -3,37 +3,40 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IPlayerController
 {
-    public PlayerStateMachine playerStateMachine;
-    public void SetMoveInput(Vector2 readValue)
-    {
-        playerStateMachine.CurrentState.SetMoveInput(readValue);
-    }
+	public int Id { get; private set; }
+	public PlayerStateMachine playerStateMachine;
+	public PlayerAbilityStateMachine playerAbilityStateMachine;
 
-    public void SetJumpInput(bool readValueAsButton)
-    {
-        playerStateMachine.CurrentState.SetJumpInput(readValueAsButton);
-    }
+	public void SetMoveInput(Vector2 readValue)
+	{
+		playerStateMachine.CurrentState.SetMoveInput(readValue);
+	}
 
-    public bool IsFacingRight => playerStateMachine.CurrentState.IsFacingRight;
-    public void OnBubbleHit(BubbleHitInfo info)
-    {
-        playerStateMachine.OnBubbleHit(info);
-    }
+	public void SetJumpInput(bool readValueAsButton)
+	{
+		playerStateMachine.CurrentState.SetJumpInput(readValueAsButton);
+	}
 
-    public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
-    {
-        
-        playerStateMachine.OnGuardHit(lastInputUnit,guardHitPower);
-        
-    }
+	public bool IsFacingRight => playerStateMachine.CurrentState.IsFacingRight;
 
-    public void SetAnyKeyDown()
-    {
-        playerStateMachine.CurrentState.SetAnyKeyDown();
-    }
+	public void OnBubbleHit(BubbleHitInfo info)
+	{
+		playerStateMachine.OnBubbleHit(info);
+	}
 
-    public void Respawn(Vector3 targetPosition)
-    {
-        playerStateMachine.SetPosition(targetPosition);
-    }
+	public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
+	{
+		playerStateMachine.OnGuardHit(lastInputUnit, guardHitPower);
+	}
+
+	public void SetAnyKeyDown()
+	{
+		playerStateMachine.CurrentState.SetAnyKeyDown();
+	}
+
+	public void Init(Vector3 spawnPosition, int id)
+	{
+		Id = id;
+		playerStateMachine.SetPosition(spawnPosition);
+	}
 }
