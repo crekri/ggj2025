@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
@@ -40,4 +39,10 @@ public class GameStateManager : MonoBehaviour
             GameStateChanged?.Invoke(newState);
         }
     }
+}
+
+public interface IPowerUpHandler
+{
+    public void OnCollect();
+    
 }

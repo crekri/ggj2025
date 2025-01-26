@@ -6,7 +6,8 @@ public interface IPlayerController : IPlayerMovementController
 	bool IsFacingRight { get; }
 	void OnBubbleHit(BubbleHitInfo info);
 	void OnGuardHit(Vector2 lastInputUnit, float guardHitPower);
-	
+
+	void OnPowerUpHit(IPowerUpHandler powerUpHandler);
 }
 
 public interface IPlayerMovementController

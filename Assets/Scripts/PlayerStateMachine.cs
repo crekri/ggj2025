@@ -64,10 +64,16 @@ public class PlayerStateMachine : MonoBehaviour
 		}
 	}
 
+	[SerializeField] private ParticleSystem pplHit;
+	[SerializeField] private AudioClip pplHitSound;
+	[SerializeField] private ParticleSystem pplDeath;
+	
 	public void OnGuardHit(Vector2 lastInputUnit, float guardHitPower)
 	{
 		if (CurrentState == PlayerFreeState)
 		{
+			var fx = Instantiate(pplHit, transform.position, Quaternion.identity);
+			AudioSource.PlayClipAtPoint(pplHitSound,transform.position);
 			PlayerFreeState.ApplyKnockback(lastInputUnit, guardHitPower);
 		}
 		else if (CurrentState == playerTrapState)

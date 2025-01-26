@@ -111,14 +111,15 @@ public class ModifierStick : IParamModifier
     
 }
 
-public class ModifierTrapped : IParamModifier
+
+public class ModifierDoubleJump : IParamModifier
 {
     public PlayerStat ApplyTo(PlayerStat stat)
     {
-        stat.moveVelocity = 0;
-        stat.jumpVelocity -= stat.jumpVelocity / 5;
+        stat.numberOfJump ++ ;
         return stat;
     }
-    
 }
+
+
 
